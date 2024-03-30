@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema(
   {
     name: {
         type: String,
-        required: [ture, 'Please provide a name'],
+        required: [true, 'Please provide a name'],
         unique: true,
     },
     
