@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { POSTS } from 'src/assets/posts';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'OurSpace';
+  posts = POSTS;
 }
