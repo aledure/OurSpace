@@ -8,9 +8,9 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
 // ROUTERS
-// const authRouter = require("./routes/auth.routes");
+ const authRouter = require("./routes/auth.routes");
 // const blogRouter = require('./routes/blog.routes');
-// const postsRouter = require("./routes/posts.routes");
+ const postsRouter = require("./routes/posts.routes");
 
 // * MIDDLEWARE
 app.use(express.json()); // parse json data
@@ -26,9 +26,9 @@ app.use(express.json()); // parse json data
 app.get("/api/v1/", (req, res) => {
     res.send("Hello World");
 });
-// app.use("/api/v1/auth", authRouter);
+ app.use("/api/v1/auth", authRouter);
 // app.use("/api/v1/blog", blogRouter);
-// app.use("/api/v1/posts", postsRouter);
+ app.use("/api/v1/posts", postsRouter);
 
 // * CONFIG
 const PORT = 5000; // port number
