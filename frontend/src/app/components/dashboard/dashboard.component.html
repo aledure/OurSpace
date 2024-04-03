@@ -1,6 +1,8 @@
+<app-navbar class="block md:hidden"></app-navbar>
+
 <div class="flex justify-center rounded-lg mt-12 w-full mb-6">
   <div class="flex w-full max-w-screen-xl">
-    <div class="w-1/4 p-6 bg-dark bg-opacity-40 rounded-l-lg h-1/3">
+    <div class="w-1/4 p-6 bg-dark bg-opacity-40 rounded-l-lg h-1/4 hidden md:block">
       <!-- Left container content -->
       <div class="mt-2 font-Manrope font-bold ml-2 pt-3">
         <ul class="text-pink">
@@ -57,14 +59,12 @@
           </li>
         </ul>
       </div>
-
-
     </div>
 
-    <div class="bg-dark bg-opacity-40 rounded-b-lg rounded-r-lg  w-full p-6 flex py-4">
-      <div class="w-3/4 p-2 h-100">
-        <!-- Middle container content -->
+    <div class="bg-dark bg-opacity-40 rounded-b-lg rounded-r-lg w-full p-6 flex py-4">
+      <div class="w-3/4 p-2 h-100 mx-auto">
 
+<!--To be used once backend is running-->
         <!-- <div class="card p-4 mt-2">
           <form (ngSubmit)="onCreatePost()">
             <textarea id="postContent" name="content" rows="4" [(ngModel)]="newPost.content"
@@ -75,36 +75,43 @@
           </form>
         </div> -->
 
-
-
-        <div class="card p-4 mt-2">
+<!-- Middle container content -->
+        <div class="card p-4 mt-2 relative">
+          <div class="absolute top-4 left-8 bg-light border-2">
+          <span class="material-symbols-outlined p-1 text-3xl">
+            person
+          </span>
+        </div>
+          <div class="mt-14 flex justify-center">
           <textarea id="postContent" name="postContent" rows="4"
             class="w-full border border-gray-300 rounded-md focus:outline-none focus:border-dark px-3 py-2 resize-none"
             placeholder="Write your post here..."></textarea>
+          </div>
+          <div class="mx-auto text-center">
           <button type="submit"
             class="mt-2 bg-green text-white py-2 px-4 rounded-md hover:bg-pink hover:text-dark transition-colors duration-300">Post</button>
+          </div>
         </div>
 
 
 
         <div class="mt-8">
           <h1 class="text-light text-center font-semibold">New</h1>
-
-
-          <div *ngFor="let post of posts" class="bg-light rounded-md mt-3">
-            <div class="border-2 shadow-md rounded-md p-6 relative">
-              <div class="absolute top-0 right-0 p-2">
+          <div *ngFor="let post of posts" class="bg-light rounded-md mt-3 posts mx-auto">
+            <div class="border-2 shadow-md rounded-md p-6 relative w-full">
+              <div class="absolute top-1 right-1 p-2">
                 <span class="material-symbols-outlined pr-1 text-3xl text-pink hover:text-red-600 hover:cursor-pointer">
                   favorite
                 </span>
               </div>
+              <div class="w-100 border-b-2 pb-4">
               <a href="#" class="indent-6 text-green font-bold hover:cursor-pointer">{{ post.author }}
               </a>•
               <a href="#" class="text-md text-gray-500 font-light">Follow</a>
-
+            </div>
               <p class="py-4">{{ post.body }}</p>
               <div class="mt-4 flex justify-center">
-                <div *ngIf="post.images && post.images.length > 0" class="flex">
+                <div *ngIf="post.images && post.images.length > 0" class="flex ">
                   <div *ngFor="let image of post.images" class="mr-2">
                     <img [src]="image" alt="Post Image" class="rounded-md post-image pb-6">
                   </div>
@@ -119,21 +126,21 @@
             </div>
           </div>
         </div>
-
-
-
-
       </div>
 
-      <div class="w-1/4 p-2 mt-6 mr-2 ml-2">
-        <!-- Right container content -->
-        <div class="relative">
-          <input type="text" class="border border-gray-400 rounded-lg py-3 pl-6 focus:outline-none"
-            placeholder="Search...">
-          <button type="submit" class="absolute inset-y-0 right-0 px-4 py-2 bg-green rounded-r-lg">
-            <span class="material-symbols-outlined text-light">
-              search
-            </span>
+      <div class="w-1/4 p-2 mt-6 mr-2 ml-2 hidden md:block">
+<!-- Right container content -->
+        <div class="pt-2 relative mx-auto text-gray-600 w-full">
+          <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-12 rounded-lg text-sm focus:outline-none"
+            type="search" name="search" placeholder="Search">
+          <button type="submit" class="absolute right-0 top-0 mt-5 mr-1">
+            <svg class="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+              viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve"
+              width="512px" height="512px">
+              <path
+                d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+            </svg>
           </button>
         </div>
         <div class="card p-4 mt-6">
@@ -146,7 +153,6 @@
           </ul>
         </div>
       </div>
-
     </div>
   </div>
 </div>
