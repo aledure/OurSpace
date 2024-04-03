@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { POSTS } from 'src/assets/posts';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +7,4 @@ import { POSTS } from 'src/assets/posts';
 })
 export class AppComponent {
   title = 'OurSpace';
-  posts = POSTS;
 }

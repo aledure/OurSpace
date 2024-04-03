@@ -1,0 +1,152 @@
+<div class="flex justify-center rounded-lg mt-12 w-full mb-6">
+  <div class="flex w-full max-w-screen-xl">
+    <div class="w-1/4 p-6 bg-dark bg-opacity-40 rounded-l-lg h-1/3">
+      <!-- Left container content -->
+      <div class="mt-2 font-Manrope font-bold ml-2 pt-3">
+        <ul class="text-pink">
+          <li class="mb-4">
+            <a href="#" class="text-green text-3xl font-semibold font-Josefin hover:scale-120">OurSpace</a>
+          </li>
+          <li class="mb-2 mt-6">
+            <a href="/profile" class="flex items-center hover:scale-120">
+              <span class="material-symbols-outlined pr-1 text-3xl">
+                person
+              </span>
+              <h2>Profile</h2>
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="/following" class="flex items-center hover:scale-120">
+              <span class="material-symbols-outlined pr-1 text-3xl">
+                group_add
+              </span>
+              Following
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="/links" class="flex items-center hover:scale-120">
+              <span class="material-symbols-outlined pr-1 text-3xl">
+                favorite
+              </span>
+              Likes
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="/notifications" class="flex items-center hover:scale-120">
+              <span class="material-symbols-outlined pr-1 text-3xl">
+                notifications
+              </span>
+              Notifications
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="/messages" class="flex items-center hover:scale-120">
+              <span class="material-symbols-outlined pr-1 text-3xl">
+                mail
+              </span>
+              Messages
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="/login" class="flex items-center hover:scale-120">
+              <span class="material-symbols-outlined pr-1 text-3xl">
+                login
+              </span>
+              Login
+            </a>
+          </li>
+        </ul>
+      </div>
+
+
+    </div>
+
+    <div class="bg-dark bg-opacity-40 rounded-b-lg rounded-r-lg  w-full p-6 flex py-4">
+      <div class="w-3/4 p-2 h-100">
+        <!-- Middle container content -->
+
+        <!-- <div class="card p-4 mt-2">
+          <form (ngSubmit)="onCreatePost()">
+            <textarea id="postContent" name="content" rows="4" [(ngModel)]="newPost.content"
+              class="w-full border border-gray-300 rounded-md focus:outline-none focus:border-dark px-3 py-2 resize-none"
+              placeholder="Write your post here..." required></textarea>
+            <button type="submit"
+              class="mt-2 bg-green text-white py-2 px-4 rounded-md hover:bg-pink hover:text-dark transition-colors duration-300">Post</button>
+          </form>
+        </div> -->
+
+
+
+        <div class="card p-4 mt-2">
+          <textarea id="postContent" name="postContent" rows="4"
+            class="w-full border border-gray-300 rounded-md focus:outline-none focus:border-dark px-3 py-2 resize-none"
+            placeholder="Write your post here..."></textarea>
+          <button type="submit"
+            class="mt-2 bg-green text-white py-2 px-4 rounded-md hover:bg-pink hover:text-dark transition-colors duration-300">Post</button>
+        </div>
+
+
+
+        <div class="mt-8">
+          <h1 class="text-light text-center font-semibold">New</h1>
+
+
+          <div *ngFor="let post of posts" class="bg-light rounded-md mt-3">
+            <div class="border-2 shadow-md rounded-md p-6 relative">
+              <div class="absolute top-0 right-0 p-2">
+                <span class="material-symbols-outlined pr-1 text-3xl text-pink hover:text-red-600 hover:cursor-pointer">
+                  favorite
+                </span>
+              </div>
+              <a href="#" class="indent-6 text-green font-bold hover:cursor-pointer">{{ post.author }}
+              </a>•
+              <a href="#" class="text-md text-gray-500 font-light">Follow</a>
+
+              <p class="py-4">{{ post.body }}</p>
+              <div class="mt-4 flex justify-center">
+                <div *ngIf="post.images && post.images.length > 0" class="flex">
+                  <div *ngFor="let image of post.images" class="mr-2">
+                    <img [src]="image" alt="Post Image" class="rounded-md post-image pb-6">
+                  </div>
+                </div>
+              </div>
+              <div class="absolute bottom-0 left-0">
+                <p class="p-2 text-xs">{{ post.timestamp | date }}</p>
+              </div>
+              <div class="absolute bottom-0 right-0">
+                <p class="p-2 text-sm">Likes: {{ post.likes }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+
+      <div class="w-1/4 p-2 mt-6 mr-2 ml-2">
+        <!-- Right container content -->
+        <div class="relative">
+          <input type="text" class="border border-gray-400 rounded-lg py-3 pl-6 focus:outline-none"
+            placeholder="Search...">
+          <button type="submit" class="absolute inset-y-0 right-0 px-4 py-2 bg-green rounded-r-lg">
+            <span class="material-symbols-outlined text-light">
+              search
+            </span>
+          </button>
+        </div>
+        <div class="card p-4 mt-6">
+          <h1>Following:</h1>
+          <ul>
+            <li>account 1</li>
+            <li>account 2</li>
+            <li>account 3</li>
+            <li>account 4</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
