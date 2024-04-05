@@ -8,9 +8,9 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
 // ROUTERS
- const authRouter = require("./routes/auth.routes");
+ const authRouter = require("./routes/auth.route");
 // const blogRouter = require('./routes/blog.routes');
- const postsRouter = require("./routes/posts.routes");
+ const postsRouter = require("./routes/posts.route");
 
 // * MIDDLEWARE
 app.use(express.json()); // parse json data
