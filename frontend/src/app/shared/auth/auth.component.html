@@ -1,15 +1,15 @@
 <body
-  class="min-h-screen grid place-content-center bg-gradient-to-r from-customBlue to-customBlack"
+  class="min-h-screen grid place-content-center bg-gradient-to-r from-customBlue to-customPink custom-background"
 >
   <div
-    class="bg-customBeige grid place-content-center min-h-[70vh] min-w-[70vh] max-h-[70vh] max-w-[70vh] rounded-2xl shadow-2xl"
+    class="bg-transparent grid place-content-center min-h-[70vh] min-w-[70vh] max-h-[70vh] max-w-[70vh] rounded-2xl shadow-2xl"
   >
     <div class="">
-      <p class="text-3xl m-3">Sign in or create an account!</p>
+      <p class="text-3xl text-customBlue m-3">Sign in or create an account!</p>
       <form #authFormRef="ngForm" (ngSubmit)="onAuthFormSubmit(authFormRef)">
         <!-- EMAIL -->
-        <div class="block mb-2 text-xl font-medium dark:text-white">
-          <label for="email">Email:</label>
+        <div class="mb-2 text-xl font-medium dark:text-black">
+          <label for="email" class="block mb-1 text-customPink">Email:</label>
           <input
             type="email"
             id="email"
@@ -22,8 +22,10 @@
         </div>
 
         <!-- PASSWORD -->
-        <div class="block mb-2 text-xl font-medium dark:text-white">
-          <label for="password">Password:</label>
+        <div class="mb-2 text-xl font-medium dark:text-black">
+          <label for="password" class="block mb-1 text-customPink"
+            >Password:</label
+          >
           <input
             type="password"
             id="password"
@@ -37,7 +39,7 @@
 
         <!-- BUTTONS -->
         <button
-          class="bg-customWhite enabled:hover:bg-customOrange enabled:active:bg-customOrange focus:outline-none focus:ring focus:ring-customBlack rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+          class="bg-customLight enabled:hover:bg-customPink enabled:active:bg-customPink focus:outline-none focus:ring focus:ring-customBlack rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
           type="submit"
           [disabled]="!authFormRef.valid"
         >
@@ -45,7 +47,7 @@
         </button>
         |
         <button
-          class="bg-customWhite enabled:hover:bg-customOrange enabled:active:bg-customOrange focus:outline-none focus:ring focus:ring-customBlack rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+          class="bg-customLight enabled:hover:bg-customPink enabled:active:bg-customPink focus:outline-none focus:ring focus:ring-customBlack rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
           type="button"
           (click)="onSwitchAuthMode()"
         >
