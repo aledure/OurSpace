@@ -1,5 +1,5 @@
 require("dotenv").config();
-// require("express-async-errors");
+require("express-async-errors");
 
 const express = require("express"); // import express
 const app = express(); // create express app
@@ -9,8 +9,6 @@ const cookieParser = require("cookie-parser");
 
 // ROUTERS
 // const authRouter = require("./routes/auth.routes");
-// const blogRouter = require('./routes/blog.routes');
-// const postsRouter = require("./routes/posts.routes");
 
 // * MIDDLEWARE
 app.use(express.json()); // parse json data
@@ -24,11 +22,9 @@ app.use(express.json()); // parse json data
 
 // * ROUTES
 app.get("/api/v1/", (req, res) => {
-    res.send("Hello World");
+  res.send("Hello World");
 });
 // app.use("/api/v1/auth", authRouter);
-// app.use("/api/v1/blog", blogRouter);
-// app.use("/api/v1/posts", postsRouter);
 
 // * CONFIG
 const PORT = 5000; // port number
@@ -36,15 +32,15 @@ const SERVER_URL = `http://localhost:${PORT}`; // server url
 
 // * LISTEN
 const start = async () => {
-    try {
-        await connectToDB(process.env.MONGO_URL); // connect to database
+  try {
+    await connectToDB(process.env.MONGO_URL); // connect to database
 
-        app.listen(PORT, () => {
-            console.log(`Server is running at: ${SERVER_URL}`);
-        });
-    } catch (err) {
-        console.log(err); // log error
-    }
+    app.listen(PORT, () => {
+      console.log(`Server is running at: ${SERVER_URL}`);
+    });
+  } catch (err) {
+    console.log(err); // log error
+  }
 };
 
 start();
