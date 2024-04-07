@@ -67,4 +67,14 @@ const getPostsByUser = async (req, res) => {
   }
 };
 
-module.exports = { createPost, editPost, deletePost, getPostById, getPostsByUser };
+// Fetch all posts by all users
+const getAllPosts = async (req, res) => {
+  try {
+    const posts = await Post.find();
+    res.status(200).json({ success: true, data: posts });
+  } catch (error) {
+    res.status(400).json({ success: false, error: error.message });
+  }
+};
+
+module.exports = { createPost, editPost, deletePost, getPostById, getPostsByUser, getAllPosts };
