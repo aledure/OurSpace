@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { createPost, editPost, deletePost, getPostById, getPostsByUser } = require('../controllers/post');
+const { createPost, editPost, deletePost, getPostById, getPostsByUser, getAllPosts } = require('../controllers/post');
 
 
 // Create a new post
@@ -18,5 +18,8 @@ router.get('/:id', getPostById);
 
 // Fetch all posts by a given user
 router.get('/user/:userId', getPostsByUser);
+
+// Get all posts
+router.get('/', getAllPosts);
 
 module.exports = router;
