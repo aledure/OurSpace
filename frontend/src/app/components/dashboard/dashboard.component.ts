@@ -1,10 +1,4 @@
 import { Component } from '@angular/core';
-<<<<<<< HEAD
-=======
-// import { Post } from 'src/shared/models/post.model';
-// import { PostService } from 'src/shared/services/post.service';
-
->>>>>>> master
 import { POSTS } from 'src/assets/posts';
 
 @Component({
@@ -13,9 +7,6 @@ import { POSTS } from 'src/assets/posts';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
-<<<<<<< HEAD
-  posts = POSTS;
-=======
   // posts: Post[] = [];
   // newPost: Post = { title: '', content: '' };
   // successMessage: string = '';
@@ -61,5 +52,4 @@ export class DashboardComponent {
   //     }
   //   );
   // }
->>>>>>> master
 }
