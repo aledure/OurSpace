@@ -1,26 +1,49 @@
-const User = require('../models/user.model');
+// IMPORTS
+const asyncWrapper = require('./../middleware/async-wrapper.middleware');
+const User = require('./../models/user.model');
 
-exports.registerUser = async (req, res) => {
-    try {
-        // Extract user data from request body
-        const { username, email, password, bio, userImage } = req.body;
+// Register Controller
+exports.register = asyncWrapper(async (req, res) => {
+    const user = await User.create({ ...req.body });
+    const token = user.createToken();
+    res
+        .status(201)
+        .json({ user: { username: user.username, id: user._id }, token });
+});
 
-        // Create a new user instance
-        const newUser = new User({
-            username,
-            email,
-            password,
-            bio,
-            userImage
-        });
+// Login Controller
+exports.login = asyncWrapper(async (req, res) => {
+    const { email, password } = req.body; // get email and password from request
 
-        // Save the user to the database
-        await newUser.save();
-
-        // Redirect the user to a success page or any other desired route
-        res.redirect('/profile');
-    } catch (error) {
-        console.error('Error registering user:', error);
-        res.status(500).send('Error registering user');
+    if (!email || !password) {
+        // check for email and password existance
+        return res.status(400).json({ msg: 'Please provide email and password' });
     }
-};
+
+    // Find User
+    const user = await User.findOne({ email });
+
+    if (!user) {
+        return res.status(401).json({ msg: 'Invalid Credentials' });
+    }
+
+    // Use Schema method to compare incoming password to hashed password
+    const isPasswordCorrect = await user.comparePassword(password);
+
+    if (!isPasswordCorrect) {
+        return res.status(401).json({ msg: 'Invalid Credentials' });
+    }
+
+    // Create token from Schema method
+    const token = user.createToken();
+
+    res
+        .status(200)
+        .json({ user: { username: user.username, id: user._id }, token });
+});
+
+// Me Controller
+exports.me = asyncWrapper(async (req, res) => {
+    const { user } = req;
+    res.status(200).json({ user });
+});

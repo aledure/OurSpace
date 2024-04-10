@@ -6,7 +6,7 @@ import { environment } from 'src/app/environments/environment';
   providedIn: 'root',
 })
 export class PostService {
-  apiUrl: string = environment.API_URL + '/posts';
+  apiUrl: string = environment.API_URL + '/api/v1/posts';
 
   constructor(private http: HttpClient) {}
 
@@ -19,6 +19,14 @@ export class PostService {
   }
 
   createPost(postData: any) {
-    return this.http.post(`${this.apiUrl}/create`, postData);
+    return this.http.post(`${this.apiUrl}`, postData);
+  }
+
+  updatePost(postData: any) {
+    return this.http.put(`${this.apiUrl}/${postData._id}`, postData);
+  }
+
+  deletePost(id: string) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }
