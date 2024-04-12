@@ -1,0 +1,77 @@
+<app-navbar class="block md:hidden"></app-navbar>
+
+<div class="flex justify-center rounded-lg mt-12 w-full mb-6">
+  <div class="flex w-full max-w-screen-xl">
+
+    <div class="bg-dark bg-opacity-40 rounded-b-lg rounded-r-lg w-full p-6 flex py-4">
+      <div class="mt-2 font-Manrope font-bold ml-2 pt-3">
+        <ul class="text-pink">
+          <li class="mb-4">
+            <a href="#" class="text-green text-3xl font-semibold font-Josefin hover:scale-120">OurSpace</a>
+          </li>
+          <li class="mb-2 mt-6">
+            <a href="/profile" class="flex items-center hover:scale-120">
+              <span class="material-symbols-outlined pr-1 text-3xl">
+                person
+              </span>
+              <h2>Profile</h2>
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="/following" class="flex items-center hover:scale-120">
+              <span class="material-symbols-outlined pr-1 text-3xl">
+                group_add
+              </span>
+              Following
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="/links" class="flex items-center hover:scale-120">
+              <span class="material-symbols-outlined pr-1 text-3xl">
+                favorite
+              </span>
+              Likes
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="/notifications" class="flex items-center hover:scale-120">
+              <span class="material-symbols-outlined pr-1 text-3xl">
+                notifications
+              </span>
+              Notifications
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="/messages" class="flex items-center hover:scale-120">
+              <span class="material-symbols-outlined pr-1 text-3xl">
+                mail
+              </span>
+              Messages
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="/login" class="flex items-center hover:scale-120">
+              <span class="material-symbols-outlined pr-1 text-3xl">
+                login
+              </span>
+              Login
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="w-3/4 p-2 h-100 mx-auto">
+        <div class="mt-8 pb-4">
+          <div class="pt-2 relative mx-auto text-gray-600 w-full">
+            <input #usernameInput class="border-2 border-gray-300 bg-white h-10 px-5 pr-12 rounded-lg text-sm focus:outline-none"
+              type="text" name="username" placeholder="Username">
+            <input #passwordInput class="border-2 border-gray-300 bg-white h-10 px-5 pr-12 rounded-lg text-sm focus:outline-none"
+              type="password" name="password" placeholder="Password">
+            <button type="button" (click)="handleLogin(usernameInput.value, passwordInput.value)">Login</button>
+        </div>
+
+        <div class="text-red-500">{{errorMessage}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
