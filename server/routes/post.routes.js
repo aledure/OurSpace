@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { createPost, editPost, deletePost, getPostById, getPostsByUser, getAllPosts } = require('../controllers/post');
+const { createPost, editPost, deletePost, getPostById, getPostsByUser, getAllPosts, likePost} = require('../controllers/post');
 
 
 // Create a new post
@@ -21,5 +21,11 @@ router.get('/user/:userId', getPostsByUser);
 
 // Get all posts
 router.get('/', getAllPosts);
+
+//Like A Post 
+router.post('/like/:id', likePost)
+
+//Unlike A Post     
+// router.delete('/:id/params', unlikePost)
 
 module.exports = router;
