@@ -1,25 +1,76 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { BehaviorSubject, tap } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
+
+export interface User {
+  id: number;
+  username: string;
+}
+
+export interface CreateUser {
+  username: string;
+  email: string;
+  password: string;
+  bio: string;
+  userImage: string;
+  posts: any[];
+}
+
+export interface LoginUser {
+  email: string;
+  password: string;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  apiUrl: string = environment.API_URL + '/api/v1/user';
+  private user$ = new BehaviorSubject<User | undefined | null>(null);
 
-  constructor(private http: HttpClient) { }
-
-  register(postData: any) {
-    return this.http.post(`${this.apiUrl}/register`, postData);
+  get currentUser() {
+    return this.user$.asObservable();
   }
 
-  login(postData: any) {
-    return this.http.post(`${this.apiUrl}/login`, postData);
+  constructor(
+    private httpClient: HttpClient,
+    private cookieService: CookieService,
+    private router: Router
+  ) {}
+
+  setUser({ id, username }: User) {
+    this.user$.next({ id, username });
   }
 
-  getMe(postData: any) {
-    return this.http.post(`${this.apiUrl}`, postData);
+  register({ username, email, password }: CreateUser) {
+    return this.httpClient
+      .post<{ user: User; token: string }>(
+        `${environment.API_URL}/api/v1/auth/register`,
+        { username, email, password }
+      )
+      .pipe(tap(({ token }) => this.cookieService.set('token', token)));
   }
 
+  login({ email, password }: LoginUser) {
+    return this.httpClient
+      .post<{ user: User; token: string }>(
+        `${environment.API_URL}/api/v1/auth/login`,
+        { email, password }
+      )
+      .pipe(tap(({ token }) => this.cookieService.set('token', token)));
+  }
+
+  me() {
+    return this.httpClient.get<{ user: User }>(
+      `${environment.API_URL}/api/v1/auth/me`
+    );
+  }
+
+  logout() {
+    this.cookieService.delete('token');
+    this.user$.next(null);
+    this.router.navigate(['/']);
+  }
 }
