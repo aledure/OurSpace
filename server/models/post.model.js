@@ -20,26 +20,24 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: null,
     },
-
-    // createdBy: {
-    //   type: mongoose.Types.ObjectId,
-    //   ref: "User",
-    //   required: [true, "Please provide a user"],
-    // },
-    like:{
+    createdBy: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      required: [true, "Please provide a user"],
+    },
+    like: {
       type: Number,
       required: null,
       // ref: 'UserID',
       default: 0,
     },
 
-  // unlike:{
-  //   type: number,
-  //   required: null, 
-  //   ref: 'UserId',
-  //   default: 0,
-  // },
-
+    // unlike:{
+    //   type: number,
+    //   required: null, 
+    //   ref: 'UserId',
+    //   default: 0,
+    // },
   },
   {
     timestamps: true,
