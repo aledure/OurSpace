@@ -1,7 +1,7 @@
 const Post = require("./../models/post.model");
 const mongoose = require("mongoose");
+const User = require("./../models/user.model");
 
-// Create a new post
 const createPost = async (req, res) => {
   try {
     const { title, content, image, createdBy } = req.body;
@@ -9,13 +9,19 @@ const createPost = async (req, res) => {
     // Convert createdBy string to ObjectId
     const createdByObjectId = new mongoose.Types.ObjectId(createdBy);
 
+    // Create the post
     const post = await Post.create({ title, content, image, createdBy: createdByObjectId });
     console.log("New post created with ID:", post._id);
+
+    // Update the user's document to include the new post in the posts array
+    await User.findByIdAndUpdate(createdByObjectId, { $push: { posts: post._id } });
+
     res.status(201).json({ success: true, data: post });
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }
 };
+
 
 // Edit a post
 const editPost = async (req, res) => {

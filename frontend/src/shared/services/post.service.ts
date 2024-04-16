@@ -6,10 +6,7 @@ export interface Post {
   _id: string;
   title: string;
   content: string;
-  createdBy: {
-    id: string;
-    username: string;
-  };
+  createdBy: number;
   createdAt: string;
   updatedAt: Date;
 }
@@ -40,8 +37,12 @@ export class PostService {
     return this.http.get<{ posts: Post[] }>(`${this.apiUrl}/user/${userId}`);
   }
 
-  createPost({ title, content }: CreatePost) {
-    return this.http.post<{ post: Post }>(this.apiUrl, { title, content });
+  createPost({ title, content, createdBy }: CreatePost) {
+    return this.http.post<{ post: Post }>(this.apiUrl, {
+      title,
+      content,
+      createdBy,
+    });
   }
 
   updatePost({ id, postData }: { id: string; postData: Post }) {

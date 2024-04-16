@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   PostService,
   Post,
@@ -12,18 +12,11 @@ import { Subscription } from 'rxjs';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit, OnDestroy {
   posts: Post[] = [];
-
   user: User | null = null;
-
   private userSubscription = new Subscription();
-
-  newPost: CreatePost = {
-    title: '',
-    content: '',
-    createdBy: 0,
-  };
+  newPost: CreatePost = { title: '', content: '', createdBy: 0 };
 
   constructor(
     private postService: PostService,
@@ -33,14 +26,19 @@ export class DashboardComponent {
   ngOnInit() {
     this.getPosts();
 
-    this.userSubscription.add(
-      this.userService.currentUser.subscribe((user) => {
-        if (user !== undefined) {
-          this.user = user;
-        }
+    this.userSubscription = this.userService.me().subscribe(
+      (response) => {
+        this.user = response.user;
         console.log(this.user);
-      })
+      },
+      (error) => {
+        console.error('Error fetching user information:', error);
+      }
     );
+  }
+
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
   }
 
   getPosts() {
@@ -50,13 +48,19 @@ export class DashboardComponent {
   }
 
   onCreatePost() {
-    this.newPost.createdBy = this.user?.id || 0;
-    this.postService.createPost(this.newPost).subscribe(() => {
-      this.getPosts();
-    });
+    if (this.user) {
+      this.newPost.createdBy = this.user.id;
+      this.postService.createPost(this.newPost).subscribe(() => {
+        this.getPosts();
+        // Reset the new post form
+        this.newPost = { title: '', content: '', createdBy: 0 };
+      });
+    } else {
+      console.error('User is not logged in');
+    }
   }
 
-  ngOnDestroy() {
-    this.userSubscription.unsubscribe();
+  logout() {
+    this.userService.logout();
   }
 }
