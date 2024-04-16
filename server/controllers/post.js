@@ -1,12 +1,16 @@
 const Post = require("./../models/post.model");
+const mongoose = require("mongoose");
 
 // Create a new post
 const createPost = async (req, res) => {
   try {
     const { title, content, image, createdBy } = req.body;
-    console.log('creating post')
-    const post = await Post.create({ title, content });
-    console.log("New post created with ID:", post._id); // Log the post's ID
+
+    // Convert createdBy string to ObjectId
+    const createdByObjectId = new mongoose.Types.ObjectId(createdBy);
+
+    const post = await Post.create({ title, content, image, createdBy: createdByObjectId });
+    console.log("New post created with ID:", post._id);
     res.status(201).json({ success: true, data: post });
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +13,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../shared/interceptors/auth.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
+import { UserService } from 'src/shared/services/user.service';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,14 @@ import { RegisterComponent } from './components/register/register.component';
   providers: [
     CookieService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (
+        cookieService: CookieService,
+        userService: UserService
+      ) => {},
+      deps: [CookieService, UserService],
+    },
   ],
   bootstrap: [AppComponent],
 })

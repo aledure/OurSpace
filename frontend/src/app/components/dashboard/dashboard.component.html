@@ -3,7 +3,7 @@
 <div class="flex justify-center rounded-lg mt-12 w-full mb-6">
   <div class="flex w-full max-w-screen-xl">
     <div class="w-1/4 p-6 bg-dark bg-opacity-40 rounded-l-lg h-full hidden md:block">
-      <!-- Left container content -->
+      <!-- navigation menu -->
       <div class="mt-2 font-Manrope font-bold ml-2 pt-3">
         <ul class="text-pink">
           <li class="mb-4">
@@ -63,38 +63,35 @@
 
     <div class="bg-dark bg-opacity-40 rounded-b-lg rounded-r-lg w-full p-6 flex py-4">
       <div class="w-3/4 p-2 h-100 mx-auto">
-
-        <!--To be used once backend is running-->
-        <!-- <div class="card p-4 mt-2">
-          <form (ngSubmit)="onCreatePost()">
-            <textarea id="postContent" name="content" rows="4" [(ngModel)]="newPost.content"
-              class="w-full border border-gray-300 rounded-md focus:outline-none focus:border-dark px-3 py-2 resize-none"
-              placeholder="Write your post here..." required></textarea>
-            <button type="submit"
-              class="mt-2 bg-green text-white py-2 px-4 rounded-md hover:bg-pink hover:text-dark transition-colors duration-300">Post</button>
-          </form>
-        </div> -->
-
         <!-- Middle container content -->
+
+        <!--create post form-->
         <div class="card p-4 mt-2 relative">
-          <div class="absolute top-4 left-8 bg-light border-2">
-            <span class="material-symbols-outlined p-1 text-3xl">
-              person
+          <div class="absolute top-4 left-8 bg-light" *ngIf="user">
+            <span class="p-1 text-3xl flex row">
+              <h1>{{user.username}}</h1>
             </span>
           </div>
-          <div class="mt-14 flex justify-center">
-            <textarea id="postContent" name="postContent" rows="4"
-              class="w-full border border-gray-300 rounded-md focus:outline-none focus:border-dark px-3 py-2 resize-none"
-              placeholder="Write your post here..."></textarea>
-          </div>
-          <div class="mx-auto text-center">
-            <button type="button" (click)="onCreatePost()"
-              class="mt-2 bg-green text-white py-2 px-4 rounded-md hover:bg-pink hover:text-dark transition-colors duration-300">Post</button>
-          </div>
+          <form (ngSubmit)="onCreatePost(); postForm.reset()" #postForm="ngForm"
+            class="mt-14 flex justify-center flex-col items-center">
+            <input id="postTitle" name="postTitle" [(ngModel)]="newPost.title" type="text"
+              class="w-3/4 border border-gray-300 rounded-md focus:outline-none focus:border-dark px-3 py-2 resize-none mb-2"
+              placeholder="Title" required>
+            <textarea id="postContent" name="postContent" [(ngModel)]="newPost.content" rows="4"
+              class="w-3/4 border border-gray-300 rounded-md focus:outline-none focus:border-dark px-3 py-2 resize-none"
+              placeholder="Write your post here..." required></textarea>
+            <div class="mx-auto text-center">
+              <button type="submit"
+                class="mt-4 bg-green text-white py-2 px-4 rounded-md hover:bg-pink hover:text-dark transition-colors duration-300">Post</button>
+            </div>
+          </form>
+
+
         </div>
 
 
 
+        <!--posts-->
         <div class="mt-8 pb-4">
           <h1 class="text-light text-center font-semibold">New</h1>
           <div *ngFor="let post of posts" class="bg-light rounded-md mt-6 posts mx-auto">
@@ -111,25 +108,15 @@
               </div>
               <h1 class="mt-4 font-semibold indent-2 text-lg">{{post.title}}</h1>
               <p class="py-4 indent-6">{{ post.content }}</p>
-              <!-- <div class="mt-4 flex justify-center">
-                <div *ngIf="post.images && post.images.length > 0" class="flex ">
-                  <div *ngFor="let image of post.images" class="mr-2">
-                    <img [src]="image" alt="Post Image" class="rounded-md post-image pb-6">
-                  </div>
-                </div>
-              </div> -->
               <div class="absolute bottom-0 left-0">
                 <p class="p-2 text-xs">{{ post.createdAt | date }}</p>
-              </div>
-              <div class="absolute bottom-0 right-0">
-                <!-- <p class="p-2 text-sm">Likes: {{ post.likes }}</p> -->
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Right container content -->
+      <!-- search and following menu -->
       <div class="w-1/4 p-2 mt-6 mr-2 ml-2 hidden md:block">
         <div class="pt-2 relative mx-auto text-gray-600 w-full">
           <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-12 rounded-lg text-sm focus:outline-none"

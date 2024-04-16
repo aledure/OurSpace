@@ -1,6 +1,11 @@
-import { Component } from '@angular/core';
-import { Post } from 'src/shared/models/post.model';
-import { PostService } from 'src/shared/services/post.service';
+import { Component, OnInit } from '@angular/core';
+import {
+  PostService,
+  Post,
+  CreatePost,
+} from 'src/shared/services/post.service';
+import { UserService, User } from 'src/shared/services/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,57 +15,48 @@ import { PostService } from 'src/shared/services/post.service';
 export class DashboardComponent {
   posts: Post[] = [];
 
-  newPost: Post = {
-    id: '',
-    createdBy: '',
-    createdAt: new Date(),
-    updatedAt: new Date(),
+  user: User | null = null;
+
+  private userSubscription = new Subscription();
+
+  newPost: CreatePost = {
     title: '',
     content: '',
+    createdBy: 0,
   };
-  successMessage: string = '';
-  errorMessage: string = '';
 
-  constructor(private postService: PostService) {
+  constructor(
+    private postService: PostService,
+    private userService: UserService
+  ) {}
+
+  ngOnInit() {
     this.getPosts();
+
+    this.userSubscription.add(
+      this.userService.currentUser.subscribe((user) => {
+        if (user !== undefined) {
+          this.user = user;
+        }
+        console.log(this.user);
+      })
+    );
   }
+
   getPosts() {
     this.postService.getPosts().subscribe((res: any) => {
       this.posts = res.data;
     });
   }
 
-  deletePost(id: string) {
-    this.postService.deletePost(id).subscribe((res: any) => {
-      this.getPosts();
-    });
-  }
-  updatePost(post: Post) {
-    this.postService.updatePost(post).subscribe((res: any) => {
-      this.getPosts();
-    });
-  }
   onCreatePost() {
-    this.postService.createPost(this.newPost).subscribe(
-      (res: any) => {
-        console.log('Post created successfully:', res);
-        this.successMessage = 'Post created successfully';
-        this.errorMessage = '';
-        this.newPost = {
-          id: '',
-          createdBy: '900202404051714027266610',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          title: '',
-          content: '',
-        };
-        this.getPosts();
-      },
-      (error: any) => {
-        console.error('Error creating post:', error);
-        this.successMessage = '';
-        this.errorMessage = 'Error creating post. Please try again.';
-      }
-    );
+    this.newPost.createdBy = this.user?.id || 0;
+    this.postService.createPost(this.newPost).subscribe(() => {
+      this.getPosts();
+    });
+  }
+
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
   }
 }
