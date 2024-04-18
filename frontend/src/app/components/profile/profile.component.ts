@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { PostService } from 'src/shared/services/post.service';
+import { PostService, Post } from 'src/shared/services/post.service';
 import { UserService, User } from 'src/shared/services/user.service';
 
 @Component({
@@ -11,6 +11,7 @@ import { UserService, User } from 'src/shared/services/user.service';
 })
 export class ProfileComponent {
   user: User | null = null;
+  userPosts: Post[] = [];
 
   private userSubscription = new Subscription();
 
@@ -21,14 +22,29 @@ export class ProfileComponent {
   ) {}
 
   ngOnInit() {
-    this.userSubscription.add(
-      this.userService.currentUser.subscribe((user) => {
-        if (user !== undefined) {
-          this.user = user;
-        }
+    this.userSubscription = this.userService.me().subscribe(
+      (response) => {
+        this.user = response.user;
         console.log(this.user);
-      })
+      },
+      (error) => {
+        console.error('Error fetching user information:', error);
+      }
     );
+    this.getPostsByUser();
+  }
+
+  getPostsByUser() {
+    if (this.user) {
+      this.postService
+        .getPostsByUser({ userId: this.user.id.toString() })
+        .subscribe((res: any) => {
+          this.userPosts = res.posts; // Store user's posts
+          console.log('posts: ', this.userPosts);
+        });
+    } else {
+      console.error('User is not logged in');
+    }
   }
 
   ngOnDestroy() {

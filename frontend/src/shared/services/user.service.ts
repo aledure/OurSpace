@@ -40,7 +40,9 @@ export class UserService {
     private router: Router
   ) {}
 
-  setUser({ id, username }: User) {
+  setUser(user: User) {
+    const { id, username } = user;
+    console.log('setUser response: ', id, username);
     this.user$.next({ id, username });
   }
 

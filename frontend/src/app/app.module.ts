@@ -36,11 +36,28 @@ import { UserService } from 'src/shared/services/user.service';
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     {
       provide: APP_INITIALIZER,
-      useFactory: (
-        cookieService: CookieService,
-        userService: UserService
-      ) => {},
+      useFactory:
+        (cookieService: CookieService, userService: UserService) => () => {
+          return new Promise<void>((resolve, reject) => {
+            if (cookieService.check('token')) {
+              userService.me().subscribe(
+                (response) => {
+                  userService.setUser(response.user);
+                  resolve();
+                },
+                (error) => {
+                  // Handle error if the me() call fails
+                  console.error('Error fetching user information:', error);
+                  resolve(); // Resolve even if there's an error to ensure the app starts
+                }
+              );
+            } else {
+              resolve(); // No token, resolve immediately
+            }
+          });
+        },
       deps: [CookieService, UserService],
+      multi: true,
     },
   ],
   bootstrap: [AppComponent],
