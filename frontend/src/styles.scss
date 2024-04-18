@@ -3,19 +3,19 @@
 @tailwind utilities;
 
 body {
-  background-image: url('./assets/background.png');
+  background-image: url("./assets/background.png");
   background-size: cover;
   background-attachment: fixed;
-  font-family: 'Manrope', sans-serif;
+  font-family: "Manrope", sans-serif;
 }
 
 a:hover {
-  transition: .2s;
+  transition: 0.2s;
   transform: scale(1.1);
 }
 
 .card {
-  background-color: #F2FBFD;
+  background-color: #f2fbfd;
   border-radius: 10px;
 }
 
@@ -38,25 +38,25 @@ a:hover {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #546A7B;
-* {
-  font-family: "Open Sans", sans-serif;
-}
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
+  background: #546a7b;
+  * {
+    font-family: "Open Sans", sans-serif;
+  }
+  html,
+  body {
+    height: 100%;
+  }
+  body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
 
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
+  html,
+  body {
+    height: 100%;
+  }
+  body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
 }

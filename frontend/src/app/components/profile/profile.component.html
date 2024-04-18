@@ -1,0 +1,78 @@
+<!-- <h1>{{user?.username}}</h1> -->
+<div class="profile-box">
+  <a href="/dashboard">
+    <img src="/assets/homeicon.png" class="home-icon" />
+  </a>
+  <h3>{{ user?.username }}</h3>
+
+  <!-- <button type=" button">Follow</button> -->
+  <div class="profile-bottom">
+    <div class="card p-4 mt-2 relative">
+      <div class="absolute top-4 left-8 bg-light border-2">
+        <span class="material-symbols-outlined p-1 text-3xl"> person </span>
+      </div>
+      <div class="mt-14 flex justify-center">
+        <textarea
+          id="postContent"
+          name="postContent"
+          rows="4"
+          class="w-full border border-gray-300 rounded-md focus:outline-none focus:border-dark px-3 py-2 resize-none"
+          placeholder="Write your post here..."
+        ></textarea>
+      </div>
+      <div class="mx-auto text-center">
+        <button
+          type="submit"
+          class="mt-2 bg-green text-white py-2 px-4 rounded-md hover:bg-pink hover:text-dark transition-colors duration-300"
+        >
+          Post
+        </button>
+      </div>
+      <br />
+
+      <ul class="border-solid border-2 border-customPink">
+        <li *ngFor="let post of userPosts" class="border">
+          <strong>{{ post.title }}</strong>
+          <p>{{ post.content }}</p>
+          <p>Created By: {{ post.createdBy.username }}</p>
+          <p>Created At: {{ post.createdAt }}</p>
+        </li>
+      </ul>
+    </div>
+    <!-- post card -->
+    <li *ngFor="let post of userPosts">
+      <div
+        class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-10 max-w-md md:max-w-2xl"
+      >
+        <!--horizontial margin is just for display-->
+        <div class="flex items-start px-4 py-6">
+          <img
+            class="w-12 h-12 rounded-full object-cover mr-4 shadow"
+            src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+            alt="avatar"
+          />
+          <div class="">
+            <div class="flex items-center justify-between">
+              <h2 class="text-lg font-semibold text-gray-900 -mt-1">
+                {{post.createdBy.username}}
+              </h2>
+              <h3 class="text-lg font-semibold text-gray-900 -mt-1">
+                <strong>{{post.title}}</strong>
+              </h3>
+              <small class="text-sm text-gray-700">{{post.createdAt}}</small>
+            </div>
+
+            <p class="mt-3 text-gray-700 text-sm">
+              {{post.content}}
+            </p>
+            <div class="mt-4 flex items-center">
+              <div class="flex mr-2 text-gray-700 text-sm mr-3"></div>
+              <div class="flex mr-2 text-gray-700 text-sm mr-8"></div>
+              <div class="flex mr-2 text-gray-700 text-sm mr-4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </div>
+</div>

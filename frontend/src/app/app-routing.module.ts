@@ -1,18 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-// import { AuthGuard } from './shared/auth/auth-guard/auth-guard.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { AppComponent } from './app.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { AuthGuard } from '../shared/auth.guard';
 
-const appRoutes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-
+const routes: Routes = [
+  { path: 'profile', component: ProfileComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+  },
+  { path: '', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'following', component: AppComponent, canActivate: [AuthGuard] },
+  { path: 'links', component: AppComponent },
+  { path: 'notifications', component: AppComponent, canActivate: [AuthGuard] },
+  { path: 'messages', component: AppComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

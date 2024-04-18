@@ -1,34 +1,48 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthComponent } from 'src/app/shared/auth/auth.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { LoginComponent } from './components/login/login.component';
+import { CookieService } from 'ngx-cookie-service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../shared/interceptors/auth.interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './components/register/register.component';
+import { UserService } from 'src/shared/services/user.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent,
+    NavbarComponent,
+    DashboardComponent,
+    ProfileComponent,
     LoginComponent,
-    NavbarComponent,
-    DashboardComponent,
-    NavbarComponent,
-    DashboardComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
+    FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    CookieService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (
+        cookieService: CookieService,
+        userService: UserService
+      ) => {},
+      deps: [CookieService, UserService],
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
