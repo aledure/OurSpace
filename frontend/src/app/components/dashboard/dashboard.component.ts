@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.userSubscription = this.userService.me().subscribe(
       (response) => {
         this.user = response.user;
-        console.log(this.user);
+        console.log('dashboard init response: ', this.user);
       },
       (error) => {
         console.error('Error fetching user information:', error);
