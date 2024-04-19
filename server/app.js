@@ -12,14 +12,14 @@ const postRoutes = require('./routes/post.routes');
 
 // * CONFIG
 const PORT = 5000; // port number
-const SERVER_URL = `http://localhost:${PORT}`; // server url
+const SERVER_URL = `https://our-space-lw35-f9lj4z2gr-andrews-projects-47671620.vercel.app/`; // server url
 
 // * MIDDLEWARE
 app.use(express.json()); // parse json data
 app.use(cookieParser(process.env.JWT_SECRET));
 app.use(
     cors({
-        origin: 'http://localhost:4200',
+        origin: '*',
         credentials: true,
     }),
 );

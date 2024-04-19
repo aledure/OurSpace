@@ -22,7 +22,6 @@ export interface CreateUser {
 export interface LoginUser {
   email: string;
   password: string;
-  id: number;
 }
 
 @Injectable({
@@ -64,11 +63,9 @@ export class UserService {
   }
 
   me() {
-    return this.httpClient
-      .get<{ user: User }>(`${environment.API_URL}/api/v1/auth/me`)
-      .pipe(
-        tap((response) => console.log('User data from backend:', response))
-      );
+    return this.httpClient.get<{ user: User }>(
+      `${environment.API_URL}/api/v1/auth/me`
+    );
   }
 
   logout() {

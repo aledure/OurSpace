@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PostService, Post } from 'src/shared/services/post.service';
 import { UserService, User } from 'src/shared/services/user.service';
@@ -16,7 +15,7 @@ export class ProfileComponent implements OnInit {
   private userSubscription = new Subscription();
 
   constructor(
-    // private activatedRoute: ActivatedRoute,
+    // private activatedRoute: ActivateRoute,
     private userService: UserService,
     private postService: PostService
   ) {}
@@ -31,6 +30,20 @@ export class ProfileComponent implements OnInit {
         }
       })
     );
+    this.getPostsByUser();
+  }
+
+  getPostsByUser() {
+    if (this.user) {
+      this.postService
+        .getPostsByUser({ userId: this.user.id.toString() })
+        .subscribe((res: any) => {
+          this.userPosts = res.posts; // Store user's posts
+          console.log('posts: ', this.userPosts);
+        });
+    } else {
+      console.error('User is not logged in');
+    }
   }
 
   loadUserPosts(id: string) {
