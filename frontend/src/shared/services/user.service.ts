@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
 
 export interface User {
-  id: number;
+  userId: string;
   username: string;
 }
 
@@ -40,10 +40,8 @@ export class UserService {
     private router: Router
   ) {}
 
-  setUser(user: User) {
-    const { id, username } = user;
-    console.log('setUser response: ', id, username);
-    this.user$.next({ id, username });
+  setUser({ userId, username }: User) {
+    this.user$.next({ userId, username });
   }
 
   register({ username, email, password }: CreateUser) {

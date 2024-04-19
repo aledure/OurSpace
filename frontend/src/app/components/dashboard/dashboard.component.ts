@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   posts: Post[] = [];
   user: User | null = null;
   private userSubscription = new Subscription();
-  newPost: CreatePost = { title: '', content: '', createdBy: 0 };
+  newPost: CreatePost = { title: '', content: '', createdBy: '' };
 
   constructor(
     private postService: PostService,
@@ -49,11 +49,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   onCreatePost() {
     if (this.user) {
-      this.newPost.createdBy = this.user.id;
+      this.newPost.createdBy = this.user.userId;
       this.postService.createPost(this.newPost).subscribe(() => {
         this.getPosts();
         // Reset the new post form
-        this.newPost = { title: '', content: '', createdBy: 0 };
+        this.newPost = { title: '', content: '', createdBy: '' };
       });
     } else {
       console.error('User is not logged in');

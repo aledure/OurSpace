@@ -6,7 +6,7 @@ export interface Post {
   _id: string;
   title: string;
   content: string;
-  createdBy: number;
+  createdBy: string;
   createdAt: string;
   updatedAt: Date;
 }
@@ -14,7 +14,7 @@ export interface Post {
 export interface CreatePost {
   title: string;
   content: string;
-  createdBy: number;
+  createdBy: string;
 }
 
 @Injectable({
@@ -34,7 +34,7 @@ export class PostService {
   }
 
   getPostsByUser({ userId }: { userId: string }) {
-    return this.http.get<{ posts: Post[] }>(`${this.apiUrl}/user/${userId}`);
+    return this.http.get<{ data: Post[] }>(`${this.apiUrl}/user/${userId}`);
   }
 
   createPost({ title, content, createdBy }: CreatePost) {
