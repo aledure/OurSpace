@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PostService, Post } from 'src/shared/services/post.service';
 import { UserService, User } from 'src/shared/services/user.service';
@@ -16,7 +15,6 @@ export class ProfileComponent {
   private userSubscription = new Subscription();
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private userService: UserService,
     private postService: PostService
   ) {}
