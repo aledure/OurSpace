@@ -12,7 +12,7 @@ const postRoutes = require('./routes/post.routes');
 
 // * CONFIG
 const PORT = 5000; // port number
-const SERVER_URL = `http://localhost:${PORT}`; // server url
+const SERVER_URL = `https://ourspace-s9ia.onrender.com`; // server url
 
 // * MIDDLEWARE
 app.use(express.json()); // parse json data
