@@ -19,7 +19,7 @@ app.use(express.json()); // parse json data
 app.use(cookieParser(process.env.JWT_SECRET));
 app.use(
     cors({
-        origin: 'https://our-space-lw35-kzfstv07o-andrews-projects-47671620.vercel.app/',
+        origin: '*',
         credentials: true,
     }),
 );
