@@ -12,7 +12,7 @@ const postRoutes = require('./routes/post.routes');
 
 // * CONFIG
 const PORT = 5000; // port number
-const SERVER_URL = `https://ourspace-s9ia.onrender.com`; // server url
+const SERVER_URL = `https://our-space-lw35-f9lj4z2gr-andrews-projects-47671620.vercel.app/`; // server url
 
 // * MIDDLEWARE
 app.use(express.json()); // parse json data
